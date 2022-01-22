@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.task.services.domain.dao.QueryTaskDao">
+
+
+    <select id="searchTaskOwnerByTeam" resultType="TaskModel">
+        SELECT task.*
+        FROM task
+        WHERE 1=1
+        <if test="status=='UNDONE' ">
+            AND task.status != 'Closed'
+        </if>
+        AND task.ownerByStaffId in
+        (SELECT DISTINCT staffId
+        FROM staff_team
+        WHERE staff_team.teamId in
+        (SELECT teamId
+        FROM staff_team
+        WHERE staff_team.isLeader=1
+        AND staff_team.staffId=#{staffId})
+        )
+        GROUP BY task.id
+        <if test="orderBy==null or orderBy==''">
+            ORDER BY task.priority DESC
+        </if>
+        <if test="orderBy!=null and orderBy!=''">
+            ORDER BY task.${orderBy}
+        </if>
+    </select>
+
+    <select id="searchTaskFollowerByTeam" resultType="TaskModel">
+        SELECT task.*
+        FROM task
+        LEFT JOIN task_follower
+        ON task_follower.taskId=task.id
+        <if test="status=='UNDONE' ">
+            AND task.status != 'Closed'
+        </if>
+        WHERE 1=1
+        and task_follower.teamId in
+        (SELECT teamId
+        FROM staff_team
+        WHERE staff_team.isLeader=1
+        AND staff_team.staffId=#{staffId})
+        or task_follower.staffId in
+        (SELECT DISTINCT staffId
+        FROM staff_team
+        WHERE staff_team.teamId in
+        (SELECT teamId
+        FROM staff_team
+        WHERE staff_team.isLeader=1
+        AND staff_team.staffId=#{staffId})
+        )
+        GROUP BY task.id
+        <if test="orderBy==null or orderBy==''">
+            ORDER BY task.priority DESC
+        </if>
+        <if test="orderBy!=null and orderBy!=''">
+            ORDER BY task.${orderBy}
+        </if>
+    </select>
+
+    <select id="allTaskOwnerByMe" resultType="TaskModel">
+        SELECT task.*
+        FROM task
+        WHERE 1=1
+        <if test="status=='UNDONE' ">
+            AND task.status != 'Closed'
+        </if>
+        AND task.ownerByStaffId=#{staffId}
+        <if test="orderBy==null or orderBy==''">
+            ORDER BY task.priority DESC
+        </if>
+        <if test="orderBy!=null and orderBy!=''">
+            ORDER BY task.${orderBy}
+        </if>
+    </select>
+
+    <select id="allTaskFollowerByMe" resultType="TaskModel">
+        SELECT task.*
+        FROM task
+        LEFT JOIN task_follower
+        ON task_follower.taskId=task.id
+        WHERE 1=1
+        <if test="status=='UNDONE' ">
+            AND task.status != 'Closed'
+        </if>
+        AND task_follower.staffId=#{staffId}
+        <if test="orderBy==null or orderBy==''">
+            ORDER BY task.priority DESC
+        </if>
+        <if test="orderBy != null and orderBy!= ''">
+            ORDER BY task.${orderBy}
+        </if>
+    </select>
+
+
+    <sql id="Base_Column_List">
+        task.*
+    </sql>
+    <select id="findTaskPage" resultType="Task" parameterType="Task">
+        SELECT task.*
+        FROM task
+        WHERE 1=1
+        <if test="ownerByStaffId != null and ownerByStaffId>0 ">
+            AND task.ownerByStaffId LIKE CONCAT('%',#{ownerByStaffId},'%')
+        </if>
+        <if test="taskName != null and taskName!= ''">
+            AND task.taskName LIKE CONCAT('%',#{taskName},'%')
+        </if>
+        <if test="status != null and status>0 ">
+            AND task.status LIKE CONCAT('%',#{status},'%')
+        </if>
+    </select>
+
+</mapper>
+        <!-- 查询的 OwnerByTeamTask -->
+
+        <!--SELECT task.*-->
+        <!--FROM task-->
+        <!--WHERE 1=1-->
+        <!--<if test="status=='UNDONE' ">-->
+        <!--AND task.status != 'CLOSED'-->
+        <!--</if>   -->
+
+
+        <!--AND task.ownerByStaffId in-->
+        <!--(-->
+
+        <!--SELECT DISTINCT staffId-->
+        <!--FROM staffTeam-->
+        <!--WHERE staffTeam.teamId-->
+        <!--in-->
+
+        <!--(SELECT DISTINCT teamId-->
+        <!--from staffTeam-->
+        <!--WHERE staffTeam.isLeader=1-->
+        <!--AND staffTeam.staffId=1)-->
+        <!--)-->
+        <!--OR task.ownerByTeamId in-->
+        <!--(SELECT DISTINCT teamId-->
+        <!--from staffTeam-->
+        <!--WHERE staffTeam.isLeader=1-->
+        <!--AND staffTeam.staffId=#{staffId})-->
+
+        <!--GROUP BY task.id-->
+        <!--ORDER BY task.priority DESC-->
+

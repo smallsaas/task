@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.task.services.domain.dao.QueryTaskUpdateDao">
+    <sql id="Base_Column_List">
+        task_update.*
+    </sql>
+    <select id="findTaskupdatePage" resultType="Taskupdate" parameterType="Taskupdate">
+        SELECT task_update.*
+        FROM task_update
+        WHERE 1=1
+        <if test="id != null and id>0 ">
+            AND task_update.id LIKE CONCAT('%',#{id},'%')
+        </if>
+        <if test="TaskID != null and TaskID>0 ">
+            AND task_update.TaskID LIKE CONCAT('%',#{TaskID},'%')
+        </if>
+        <if test="StaffId != null and StaffId>0 ">
+            AND task_update.StaffId LIKE CONCAT('%',#{StaffId},'%')
+        </if>
+        <if test="Note != null and Note!= ''">
+            AND task_update.Note LIKE CONCAT('%',#{Note},'%')
+        </if>
+        <if test="Attachment != null and Attachment!= ''">
+            AND task_update.Attachment LIKE CONCAT('%',#{Attachment},'%')
+        </if>
+        <if test="UpdateTime != null and UpdateTime>0 ">
+            AND task_update.UpdateTime LIKE CONCAT('%',#{UpdateTime},'%')
+        </if>
+    </select>
+</mapper>

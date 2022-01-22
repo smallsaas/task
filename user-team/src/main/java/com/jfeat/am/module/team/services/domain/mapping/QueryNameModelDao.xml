@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.team.services.domain.model.NameModel">
+
+
+    <resultMap id="BaseResultMap" type="com.jfeat.am.module.team.services.domain.model.NameModel">
+        <result column="staffId" property="staffId" />
+        <result column="staffName" property="staffName" />
+        <result column="teamName" property="teamName" />
+    </resultMap>
+
+    <select id="findStaffPage" resultType="Staff" parameterType="Staff" resultMap="BaseResultMap">
+        SELECT staffName,teamName,staffId
+        FROM staff
+        WHERE 1=1
+        <if test="firstName != null and firstName!= ''">
+            AND staff.firstName LIKE CONCAT('%',#{firstName},'%')
+        </if>
+        <if test="lastName != null and lastName!= ''">
+            AND staff.lastName LIKE CONCAT('%',#{lastName},'%')
+        </if>
+        <if test="postPosition != null and postPosition!= ''">
+            AND staff.postPosition LIKE CONCAT('%',#{postPosition},'%')
+        </if>
+        <if test="phone != null and phone!= ''">
+            AND staff.phone LIKE CONCAT('%',#{phone},'%')
+        </if>
+        <if test="email != null and email!= ''">
+            AND staff.email LIKE CONCAT('%',#{email},'%')
+        </if>
+        <if test="weChat != null and weChat!= ''">
+            AND staff.weChat LIKE CONCAT('%',#{weChat},'%')
+        </if>
+        <if test="qq != null and qq!= ''">
+            AND staff.qq LIKE CONCAT('%',#{qq},'%')
+        </if>
+        <if test="microBlog != null and microBlog!= ''">
+            AND staff.microBlog LIKE CONCAT('%',#{microBlog},'%')
+        </if>
+        <if test="twitter != null and twitter!= ''">
+            AND staff.twitter LIKE CONCAT('%',#{twitter},'%')
+        </if>
+        <if test="note != null and note!= ''">
+            AND staff.note LIKE CONCAT('%',#{note},'%')
+        </if>
+    </select>
+</mapper>

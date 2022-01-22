@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.task.services.domain.dao.QueryTaskReferenceDao">
+    <sql id="Base_Column_List">
+        task_reference.*
+    </sql>
+    <select id="findTaskreferencePage" resultType="Taskreference" parameterType="Taskreference">
+        SELECT task_reference.*
+        FROM task_reference
+        WHERE 1=1
+        <if test="id != null and id>0 ">
+            AND task_reference.id LIKE CONCAT('%',#{id},'%')
+        </if>
+        <if test="taskId != null and taskId>0 ">
+            AND task_reference.taskId LIKE CONCAT('%',#{taskId},'%')
+        </if>
+        <if test="referenceName != null and referenceName!= ''">
+            AND task_reference.referenceName LIKE CONCAT('%',#{referenceName},'%')
+        </if>
+        <if test="referenceId != null and referenceId!='' ">
+            AND task_reference.referenceId LIKE CONCAT('%',#{referenceId},'%')
+        </if>
+    </select>
+</mapper>

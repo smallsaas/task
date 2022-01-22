@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.team.services.persistence.dao.TeamMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.jfeat.am.module.team.services.persistence.model.Team">
+		<id column="id" property="id" />
+		<result column="teamName" property="teamName" />
+		<result column="teamDesc" property="teamDesc" />
+		<result column="pid" property="pid" />
+		<result column="org_id" property="orgId" />
+		<result column="version" property="version" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, teamName, teamDesc, pid, org_id AS orgId,version
+    </sql>
+
+</mapper>

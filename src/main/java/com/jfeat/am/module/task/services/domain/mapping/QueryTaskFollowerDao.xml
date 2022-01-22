@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.task.services.domain.dao.QueryTaskFollowerDao">
+    <sql id="Base_Column_List">
+        task_follower.*
+    </sql>
+    <select id="findTaskfollowerPage" resultType="Taskfollower" parameterType="Taskfollower">
+        SELECT task_follower.*
+        FROM task_follower
+        WHERE 1=1
+        <if test="id != null and id>0 ">
+            AND task_follower.id LIKE CONCAT('%',#{id},'%')
+        </if>
+        <if test="TeamId != null and TeamId>0 ">
+            AND task_follower.TeamId LIKE CONCAT('%',#{TeamId},'%')
+        </if>
+        <if test="TaskID != null and TaskID>0 ">
+            AND task_follower.TaskID LIKE CONCAT('%',#{TaskID},'%')
+        </if>
+        <if test="StaffId != null and StaffId>0 ">
+            AND task_follower.StaffId LIKE CONCAT('%',#{StaffId},'%')
+        </if>
+    </select>
+</mapper>

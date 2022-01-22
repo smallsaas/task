@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.task.services.persistence.dao.TaskMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.jfeat.am.module.task.services.persistence.model.Task">
+		<id column="id" property="id" />
+		<result column="taskType" property="taskType" />
+		<result column="createByStaffId" property="createByStaffId" />
+		<result column="taskNumber" property="taskNumber" />
+		<result column="ownerByStaffId" property="ownerByStaffId" />
+		<result column="ownerByTeamId" property="ownerByTeamId" />
+		<result column="taskName" property="taskName" />
+		<result column="createTime" property="createTime" />
+		<result column="closeTime" property="closeTime" />
+		<result column="status" property="status" />
+		<result column="priority" property="priority" />
+		<result column="desc" property="desc" />
+		<result column="startTime" property="startTime" />
+		<result column="noticeTime" property="noticeTime" />
+		<result column="deadline" property="deadline" />
+		<result column="communicationRecordId" property="communicationRecordId" />
+		<result column="org_id" property="orgId" />
+		<result column="version" property="version" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, taskType, createByStaffId, taskNumber, ownerByStaffId, ownerByTeamId, taskName, createTime, closeTime, status, priority, desc, startTime, noticeTime, deadline, communicationRecordId, org_id AS orgId,version
+    </sql>
+
+</mapper>

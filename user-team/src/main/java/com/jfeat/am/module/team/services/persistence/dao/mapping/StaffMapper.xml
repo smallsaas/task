@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.team.services.persistence.dao.StaffMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.jfeat.am.module.team.services.persistence.model.Staff">
+		<id column="id" property="id" />
+		<result column="firstName" property="firstName" />
+		<result column="lastName" property="lastName" />
+		<result column="DOB" property="dob" />
+		<result column="sex" property="sex" />
+		<result column="postPosition" property="postPosition" />
+		<result column="phone" property="phone" />
+		<result column="email" property="email" />
+		<result column="weChat" property="weChat" />
+		<result column="qq" property="qq" />
+		<result column="microBlog" property="microBlog" />
+		<result column="twitter" property="twitter" />
+		<result column="note" property="note" />
+		<result column="avatar" property="avatar" />
+		<result column="field2" property="field2" />
+		<result column="userId" property="userId" />
+		<result column="isValid" property="isValid" />
+		<result column="org_id" property="orgId" />
+		<result column="version" property="version" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, firstName, lastName, DOB AS dob, sex, postPosition, phone, email, weChat, qq, microBlog, twitter, note, avatar, field2, userId, org_id AS orgId,isValid,version
+    </sql>
+
+</mapper>

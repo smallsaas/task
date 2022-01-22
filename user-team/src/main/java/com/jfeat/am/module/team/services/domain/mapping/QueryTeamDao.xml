@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.team.services.domain.dao.QueryTeamDao">
+
+
+    <select id="teamsLeader" resultType="Team">
+
+        <!--  查询所有 该员工 所管理的Team -->
+        SELECT team.*
+        FROM team
+        LEFT JOIN staff_team
+        ON staff_team.teamId=team.id
+        WHERE staff_team.isLeader=1
+        AND staff_team.staffId=#{staffId}
+
+    </select>
+
+
+
+
+
+
+    <sql id="Base_Column_List">
+            team.*
+        </sql>
+    <select id="findTeamPage" resultType="TeamModel" parameterType="Team">
+        SELECT team.*
+        FROM team
+        WHERE 1=1
+        <if test="teamName != null and teamName!= ''">
+            AND team.teamName LIKE CONCAT('%',#{teamName},'%')
+        </if>
+        <if test="teamDesc != null and teamDesc!= ''">
+            AND team.teamDesc LIKE CONCAT('%',#{teamDesc},'%')
+        </if>
+    </select>
+</mapper>

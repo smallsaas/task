@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.team.services.domain.dao.QueryStaffTeamDao">
+    <sql id="Base_Column_List">
+            staff_team.*
+    </sql>
+
+    <select id="getTeamLeaders" resultType="Staff" parameterType="Staff">
+        SELECT staff.* FROM staff
+        RIGHT JOIN staff_team ON staff_team.teamId = #{teamId}
+        AND staff_team.staffId=staff.id
+        AND staff_team.isLeader=1
+    </select>
+
+    <select id="getTeamsLedByStaff" resultType="Team">
+        SELECT team.* FROM team
+        RIGHT JOIN staff_team ON staff_team.teamId = team.id
+        AND staff_team.isLeader=1
+        WHERE staff_team.staffId= #{staffId}
+    </select>
+
+    <select id="getTeamsByStaffId" resultType="Team">
+        SELECT team.* FROM team
+        RIGHT JOIN staff_team ON staff_team.teamId = team.id
+        WHERE staff_team.staffId= #{staffId}
+    </select>
+</mapper>
